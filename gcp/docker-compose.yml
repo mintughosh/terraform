@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  terraform:
+    image: ${IMAGE_NAME}  # Dynamically set image name via Makefile
+    build: .
+    volumes:
+      - .:/infra
+      - $HOME/.config/gcloud:/root/.config/gcloud  # Mount GCP credentials
+    working_dir: /infra
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
